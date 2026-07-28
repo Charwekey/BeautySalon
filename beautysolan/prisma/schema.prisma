@@ -1,0 +1,112 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ─── Models ───────────────────────────────────────────
+
+model User {
+  id            String         @id @default(cuid())
+  name          String
+  email         String         @unique
+  password      String
+  phone         String?
+  role          String         @default("CUSTOMER") // SUPER_ADMIN, ADMIN, RECEPTIONIST, STYLIST, ACCOUNTANT, CUSTOMER
+  permissions   String?        // JSON array or comma-separated permissions
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  appointments  Appointment[]  @relation("CustomerAppointments")
+  notifications Notification[]
+  staffProfile  Staff?
+  reviews       Review[]
+}
+
+model Service {
+  id           String        @id @default(cuid())
+  name         String
+  description  String
+  price        Float
+  duration     Int
+  category     String
+  imageUrl     String?
+  featured     Boolean       @default(false)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  appointments Appointment[]
+}
+
+model Staff {
+  id             String        @id @default(cuid())
+  name           String
+  specialization String
+  bio            String?
+  availability   String?
+  imageUrl       String?
+  userId         String?       @unique
+  user           User?         @relation(fields: [userId], references: [id])
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  appointments   Appointment[]
+}
+
+model Appointment {
+  id            String   @id @default(cuid())
+  bookingCode   String   @unique // BK-001, BK-002, etc.
+  date          DateTime
+  time          String
+  status        String   @default("PENDING") // PENDING, CONFIRMED, DECLINED, IN_SERVICE, COMPLETED, CANCELLED
+  paymentStatus String   @default("PENDING") // PENDING, PAID, REFUNDED, FAILED
+  paymentMethod String?  @default("PAY_AT_SALON") // PAY_NOW_MOMO, PAY_NOW_CARD, PAY_NOW_BANK, PAY_AT_SALON
+  receiptNumber String?  // PAY-20260031
+  notes         String?
+  salonNotes    String?
+  totalPrice    Float?
+  customerId    String
+  customer      User     @relation("CustomerAppointments", fields: [customerId], references: [id])
+  serviceId     String
+  service       Service  @relation(fields: [serviceId], references: [id])
+  staffId       String?
+  staff         Staff?   @relation(fields: [staffId], references: [id])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  message   String
+  type      String   @default("INFO") // CONFIRMED, PAYMENT, REMINDER, DECLINED, INFO
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userName  String
+  userRole  String
+  action    String
+  details   String?
+  createdAt DateTime @default(now())
+}
+
+model Gallery {
+  id        String   @id @default(cuid())
+  title     String
+  imageUrl  String
+  category  String
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int
+  comment   String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+}

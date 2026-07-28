@@ -1,0 +1,169 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════
+   Beauty Technicians — Chic Luxury Blush & Rose Gold Theme
+   Inspired by High-End Luxury Beauty Boutiques & Editorial Aesthetics
+   ═══════════════════════════════════════════════════════ */
+
+@theme inline {
+  /* ─── Soft Blush & Rose Gold Palette ─── */
+  --color-blush-base: #FDF7F8;
+  --color-blush-soft: #F8ECEE;
+  --color-blush-mid: #F2DCE0;
+  --color-blush-accent: #E4B8C0;
+  
+  --color-rose-gold: #D49EA7;
+  --color-rose-gold-deep: #B8737D;
+  --color-rose-gold-glow: #F3C4CC;
+  
+  /* ─── Deep Luxury Chocolate & Mocha Accents ─── */
+  --color-chocolate: #3D262B;
+  --color-chocolate-light: #52353C;
+  --color-mocha: #6B4D54;
+  --color-taupe-soft: #9E8288;
+  --color-nude-beige: #E6D2CA;
+
+  /* ─── Semantic Tokens ─── */
+  --color-background: #FDF7F8;
+  --color-foreground: #3D262B;
+  --color-surface: #FFFFFF;
+  --color-muted: #6B4D54;
+  --color-border: #E8D5D8;
+
+  /* ─── Typography ─── */
+  --font-sans: var(--font-sans), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-display), Georgia, "Times New Roman", serif;
+  --font-script: var(--font-script), cursive;
+
+  /* ─── Animations ─── */
+  --animate-fade-in: fade-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-slide-up: slide-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-float-slow: float-slow 7s ease-in-out infinite;
+  --animate-shimmer-rose: shimmer-rose 3s infinite linear;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(35px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(1.5deg); }
+}
+
+@keyframes shimmer-rose {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ─── Custom Classes & Utilities ─── */
+
+.font-script {
+  font-family: var(--font-script), cursive;
+}
+
+/* Polaroid Card Effect (as seen in inspiration photos) */
+.polaroid-frame {
+  background: #FFFFFF;
+  padding: 12px 12px 36px 12px;
+  box-shadow: 0 15px 35px rgba(184, 115, 125, 0.15), 0 5px 15px rgba(0, 0, 0, 0.04);
+  border-radius: 6px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(228, 184, 192, 0.4);
+}
+
+.polaroid-frame:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 45px rgba(184, 115, 125, 0.22);
+}
+
+/* Arch Shaped Frame (as seen in inspiration image 1) */
+.arch-frame {
+  border-top-left-radius: 180px;
+  border-top-right-radius: 180px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(184, 115, 125, 0.18);
+  border: 4px solid #FFFFFF;
+}
+
+/* Luxury Glass Card */
+.glass-blush {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(228, 184, 192, 0.5);
+  box-shadow: 0 10px 30px rgba(184, 115, 125, 0.08);
+}
+
+/* Rose Gold Metallic Button */
+.btn-rose-gold {
+  background: linear-gradient(135deg, #E4B8C0 0%, #D49EA7 50%, #B8737D 100%);
+  color: #FFFFFF;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.825rem;
+  box-shadow: 0 10px 25px rgba(212, 158, 167, 0.35);
+  transition: all 0.3s ease;
+}
+
+.btn-rose-gold:hover {
+  background: linear-gradient(135deg, #D49EA7 0%, #B8737D 50%, #9E5B65 100%);
+  box-shadow: 0 15px 35px rgba(184, 115, 125, 0.45);
+  transform: translateY(-2px);
+}
+
+.btn-outline-rose {
+  border: 1.5px solid #D49EA7;
+  color: #3D262B;
+  background: transparent;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.825rem;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-rose:hover {
+  background: #F8ECEE;
+  border-color: #B8737D;
+  color: #B8737D;
+  transform: translateY(-2px);
+}
+
+/* Subtle Shimmer Overlay */
+.rose-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer-rose 3s infinite linear;
+}
+
+/* Section Header Script Subtitle */
+.script-subtitle {
+  font-family: var(--font-script), cursive;
+  color: #B8737D;
+  font-size: 2.5rem;
+  line-height: 1.1;
+  font-weight: 400;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F8ECEE;
+}
+::-webkit-scrollbar-thumb {
+  background: #E4B8C0;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B8737D;
+}
