@@ -52,7 +52,7 @@ export async function getDashboardStats() {
       select: { totalPrice: true }
     });
     
-    const totalRevenue = completedApps.reduce((sum, app) => sum + (app.totalPrice || 0), 0);
+    const totalRevenue = completedApps.reduce((sum: number, app: { totalPrice: number | null }) => sum + (app.totalPrice || 0), 0);
 
     const appointmentsWithServices = await prisma.appointment.findMany({
       select: { serviceId: true, service: { select: { name: true } } }
